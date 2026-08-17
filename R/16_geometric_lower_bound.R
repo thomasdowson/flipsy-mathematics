@@ -108,3 +108,99 @@ verify_geometric_fourier <- function(shape, n = 5) {
     agrees = geometric == fourier
   )
 }
+
+# ------------------------------------------------------------------------------
+# Exhaustively search fixed-size shapes for at least m all-odd directions
+# ------------------------------------------------------------------------------
+
+find_shape_with_odd_directions <- function(
+    k,
+    min_odd_directions = 4,
+    n = 5,
+    progress_every = 100000
+) {
+  
+  cells <- expand.grid(
+    row = 0:(n - 1),
+    col = 0:(n - 1)
+  )
+  
+  others <- cells[
+    !(cells$row == 0 & cells$col == 0),
+    c("row", "col")
+  ]
+  
+  combinations <- combn(
+    seq_len(nrow(others)),
+    k - 1
+  )
+  
+  total <- ncol(combinations)
+  
+  cat(
+    "\nGEOMETRIC SEARCH:",
+    total,
+    "shapes of size",
+    k,
+    "for at least",
+    min_odd_directions,
+    "all-odd directions\n"
+  )
+  
+  for (j in seq_len(total)) {
+    
+    if (
+      progress_every > 0 &&
+      j %% progress_every == 0
+    ) {
+      cat(
+        "Checked",
+        j,
+        "of",
+        total,
+        "\n"
+      )
+    }
+    
+    coords <- rbind(
+      c(0, 0),
+      as.matrix(
+        others[
+          combinations[, j],
+          c("row", "col")
+        ]
+      )
+    )
+    
+    shape <- make_shape(coords)
+    
+    n_odd <- count_odd_directions(shape, n)
+    
+    if (n_odd >= min_odd_directions) {
+      
+      cat(
+        "\nFound shape with",
+        n_odd,
+        "all-odd directions at index",
+        j,
+        "\n"
+      )
+      
+      return(
+        list(
+          shape = shape,
+          odd_directions = n_odd,
+          summary = odd_direction_summary(shape, n)
+        )
+      )
+    }
+  }
+  
+  cat(
+    "\nNo qualifying shape found at size",
+    k,
+    "\n"
+  )
+  
+  NULL
+}
