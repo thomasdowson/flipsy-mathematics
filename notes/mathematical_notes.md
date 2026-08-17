@@ -687,3 +687,41 @@ The intended workflow is
 
 Computational observations and proved mathematical results should be
 kept explicitly separate throughout the project.
+
+## Fourier structure of minimum rank-9 shapes
+
+For an odd-cardinality shape,
+
+\[
+\operatorname{rank}(A_S)
+=
+1+4k,
+\]
+
+where \(k\) is the number of surviving nontrivial Frobenius/Fourier
+components.
+
+Thus a rank-9 shape has exactly two surviving components.
+
+There are
+
+\[
+\binom{6}{2}=15
+\]
+
+possible unordered support pairs.
+
+Among all 660 cardinality-11 rank-9 shapes, every one of these 15
+support pairs occurs.
+
+Therefore every algebraically possible two-component Fourier support
+is realised by a minimum-cardinality rank-9 move set.
+
+The 660 minimum rank-9 shapes collapse to 17 classes under toroidal
+translation and the dihedral symmetry group \(D_4\).
+
+Note: examining only one arbitrarily oriented representative from each
+of the 17 geometric classes produced only 12 labelled Fourier-support
+pairs. This is not a restriction: rotations/reflections permute the six
+Fourier components. Examination of all 660 shapes confirms that all 15
+pairs occur.
