@@ -44,6 +44,10 @@ wrap_coord <- function(x, n) {
 #' @return A data.frame with columns row and col.
 make_shape <- function(coords) {
   
+  if (is.null(coords) || length(coords) == 0) {
+    stop("coords cannot be NULL or empty.")
+  }
+  
   coords <- as.data.frame(coords)
   
   if (ncol(coords) != 2) {
